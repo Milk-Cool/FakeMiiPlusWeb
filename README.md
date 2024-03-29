@@ -1,4 +1,4 @@
-# FakeMii (Abandoned)
+# FakeMiiPlusWeb
 
 A Simple proxy tamper for 3DS/N3DS (and probably other nintendo devices), working on Node.js. 
 This proxy will fake the nintendo connection test so that you can use it on a WLAN without internet.
@@ -14,8 +14,9 @@ Any other page will send a 404 error.
 
 ### Run FakeMii
 1. Install [Node.js](http://nodejs.org/)
-2. run `node FakeMii.js` or simply execute run.bat if you work on Windows
-3. It's running !
+2. run `npm i` to install dependencies
+3. run `node FakeMii.js` or simply execute run.bat if you work on Windows
+4. It's running !
 
 ### Set up the Nintendo 3DS
 1. Get your computer local IP adress. Select the one from the network your console is connecting to.

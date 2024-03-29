@@ -1,0 +1,26 @@
+{
+  "name": "fakemiiplusweb",
+  "version": "0.1.0",
+  "description": "A Simple proxy tamper for 3DS/N3DS (and probably other nintendo devices), working on Node.js. ",
+  "main": "FakeMii.js",
+  "scripts": {
+    "test": "node FakeMii.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milk-Cool/FakeMiiPlusWeb.git"
+  },
+  "keywords": [
+    "fakemii",
+    "3ds"
+  ],
+  "author": "Milk_Cool",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Milk-Cool/FakeMiiPlusWeb/issues"
+  },
+  "homepage": "https://github.com/Milk-Cool/FakeMiiPlusWeb#readme",
+  "dependencies": {
+    "http-proxy": "^1.18.1"
+  }
+}

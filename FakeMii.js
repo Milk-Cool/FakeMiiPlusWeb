@@ -1,19 +1,30 @@
-var http = require('http');
+var http = require('http'),
+  httpProxy = require('http-proxy');
 //var request = require('request');
 var fs   = require('fs');
 var url  = require('url');
+
+var proxy = httpProxy.createProxyServer({});
+
+process.on("uncaughtException", e => console.error(e));
+process.on("unhandledRejection", e => console.error(e));
+
+var regex = /^https?:\/\/((?!-))(xn--)?[a-z0-9][a-z0-9-_]{0,61}[a-z0-9]{0,1}\.(xn--)?([a-z0-9\-]{1,61}|[a-z0-9-]{1,30}\.[a-z]{2,})/;
 
 http.createServer(function (client_req, response) {
   console.log('serving: ' + client_req.url);
   if(client_req.url == "http://conntest.nintendowifi.net/")
 	sendConnTestPage(response);
-  else if(client_req.url.indexOf("launcher"))
+  else if(["http://launcher", "http://launcher/"].includes(client_req.url))
   {
 	  sendLauncherPage(response);
   }
   else
   {
-	  send404(response);
+    var dom = client_req.url.match(regex)?.[0];
+    client_req.url = client_req.url.replace(regex, "") || "/";
+    console.log(dom, client_req.url)
+	  proxy.web(client_req, response, { target: dom });
   }
 }).listen(3000);
 console.log('Server running on port 3000');
