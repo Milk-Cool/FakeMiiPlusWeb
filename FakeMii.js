@@ -9,21 +9,24 @@ var proxy = httpProxy.createProxyServer({});
 process.on("uncaughtException", e => console.error(e));
 process.on("unhandledRejection", e => console.error(e));
 
-var regex = /^https?:\/\/((?!-))(xn--)?[a-z0-9][a-z0-9-_]{0,61}[a-z0-9]{0,1}\.(xn--)?([a-z0-9\-]{1,61}|[a-z0-9-]{1,30}\.[a-z]{2,})/;
+var regex = /^https?:\/\/(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/;
 
 http.createServer(function (client_req, response) {
-  console.log('serving: ' + client_req.url);
-  if(client_req.url == "http://conntest.nintendowifi.net/")
+  console.log('serving: "' + client_req.url + '"');
+  let url = client_req.url;
+  if(url == "http://conntest.pretendo .cc/")
+    url = "http://conntest.pretendo.cc/";
+  if(url == "http://conntest.nintendowifi.net/")
 	sendConnTestPage(response);
-  else if(["http://launcher", "http://launcher/"].includes(client_req.url))
+  else if(["http://launcher", "http://launcher/"].includes(url))
   {
 	  sendLauncherPage(response);
   }
   else
   {
-    var dom = client_req.url.match(regex)?.[0];
-    client_req.url = client_req.url.replace(regex, "") || "/";
-    console.log(dom, client_req.url)
+    var dom = url.match(regex)?.[0];
+    url = url.replace(regex, "") || "/";
+    console.log(dom, url)
 	  proxy.web(client_req, response, { target: dom });
   }
 }).listen(3000);
